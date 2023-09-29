@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        {% include 'partials/_headtags.html' %}
+        <!-- Codemirror Library -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js" integrity="sha512-8RnEqURPUc5aqFEN04aQEiPlSAdE0jlFS/9iGgUyNtwFnSKCXhmB6ZTNl7LnDtDWKabJIASzXrzD0K+LYexU9g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css" integrity="sha512-uf06llspW44/LZpHzHT6qBOIVODjWtv4MxCricRxkzvopAlSWnTf6hpZTFxuuZcuNE9CBQhqE0Seu1CoRk84nQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/ayu-mirage.min.css" integrity="sha512-83Qw5YjeKhwUh0sTjLweNX0/xqhfPAghTPNKP3W2VREm8waJe6rjrpGFN3zl9CMDoInarIjiAfNBE7p+NGPM7g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <!-- MODES TO HIGHLIGHT CODES -->
+        <script src="{% static '/js/Codemirror/mode/javascript/javascript.js' %}"></script>
+        <script src="{% static '/js/Codemirror/mode/css/css.js' %}"></script>
+        <script src="{% static '/js/Codemirror/mode/xml/xml.js' %}"></script>
+        <script src="{% static '/js/Codemirror/mode/python/python.js' %}"></script>
+        <script src="{% static '/js/Codemirror/addon/edit/closebrackets.js' %}"></script>
+        <script src="{% static '/js/Codemirror/addon/edit/closetag.js' %}"></script>
+        <!-- ADDONS -->
+        <script src="{% static '/js/Codemirror/addon/selection/active-line.js' %}"></script>
+    </head>
+    <body>
+        {% include 'partials/layouts/_sidebar.html' %}
+        <section class="d-flex flex-row p-4 get-basic">
+            <!-- left side  -->
+            <div class="w-75 side bg-white">
+                <h2 class="text-dark fs-1 mb-4">Endpoints that require an account-specific token</h2>
+                
+                <hr class="bg-grey mb-4"/>
+                
+                <p class="text-dark mb-2 lh-base fs-6" style="opacity: .9;">
+                    When you log in to your server, the Pismo platform sends you an access token for you to use in future requests. If you plan to access an account, you need to request an account-specific token. The following list shows all the endpoints that require this type of token.
+                </p>
+
+                <br/>
+
+                <div class="my-4">
+                    <h3 class="fs-5 text-dark mb-2 mt-4">Batchs</h3>
+                    <div class="d-flex flex-column">
+                        <div class="d-flex align-items-center my-2">
+                            <button type="button" class="btn btn-info text-white">post</button>
+                            <p class="bg-light px-1" style="margin: 0; margin-left: .5rem;">/batchs/list/add</p>
+                        </div>
+                        <div class="d-flex align-items-center my-2">
+                            <button type="button" class="btn btn-success text-white">get</button>
+                            <p class="bg-light px-1" style="margin: 0; margin-left: .5rem;">/batchs/list/add</p>
+                        </div>
+                        <div class="d-flex align-items-center my-2">
+                            <button type="button" class="btn btn-primary text-white">put</button>
+                            <p class="bg-light px-1" style="margin: 0; margin-left: .5rem;">/batchs/list/add</p>
+                        </div>
+                        <div class="d-flex align-items-center my-2">
+                            <button type="button" class="btn btn-danger text-white">delete</button>
+                            <p class="bg-light px-1" style="margin: 0; margin-left: .5rem;">/batchs/list/add</p>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="my-4">
+                    <h3 class="fs-5 text-dark mb-2 mt-4">Transaction</h3>
+                    <div class="d-flex flex-column">
+                        <div class="d-flex align-items-center my-2">
+                            <button type="button" class="btn btn-info text-white">post</button>
+                            <p class="bg-light px-1" style="margin: 0; margin-left: .5rem;">/transaction/list/create</p>
+                        </div>
+                        <div class="d-flex align-items-center my-2">
+                            <button type="button" class="btn btn-success text-white">get</button>
+                            <p class="bg-light px-1" style="margin: 0; margin-left: .5rem;">/transaction/list/create</p>
+                        </div>
+                        <div class="d-flex align-items-center my-2">
+                            <button type="button" class="btn btn-primary text-white">put</button>
+                            <p class="bg-light px-1" style="margin: 0; margin-left: .5rem;">/transaction/list/create</p>
+                        </div>
+                        <div class="d-flex align-items-center my-2">
+                            <button type="button" class="btn btn-danger text-white">delete</button>
+                            <p class="bg-light px-1" style="margin: 0; margin-left: .5rem;">/transaction/list/create</p>
+                        </div>
+                    </div>
+                </div>
+
+                <hr style="margin-top: 2rem;"/>
+
+                <div class="d-flex justify-content-between align-items-center px-2">
+                    <a href="/api-reference/get-basic/" class="text-dark fs-6" style="text-decoration: none; max-width: 15rem; display: flex; align-items: center; gap: .5rem;">
+                        <img src="{% static '/images/arrow-left-solid.svg' %}" style="width: .8rem;"/>
+                        <span>Get basic authentication access token</span>
+                    </a>
+                    <a href="/api-reference/get-basic-endpoints/" class="text-dark fs-6" style="text-decoration: none; max-width: 15rem; display: flex; align-items: center; gap: .5rem;">
+                        <span style="text-align: right;">Endpoints that require an account-specific token</span>
+                        <img src="{% static '/images/arrow-right-solid.svg' %}" style="width: .8rem;"/>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

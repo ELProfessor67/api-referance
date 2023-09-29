@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        {% include 'partials/_headtags.html' %}
+        <!-- Codemirror Library -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js" integrity="sha512-8RnEqURPUc5aqFEN04aQEiPlSAdE0jlFS/9iGgUyNtwFnSKCXhmB6ZTNl7LnDtDWKabJIASzXrzD0K+LYexU9g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css" integrity="sha512-uf06llspW44/LZpHzHT6qBOIVODjWtv4MxCricRxkzvopAlSWnTf6hpZTFxuuZcuNE9CBQhqE0Seu1CoRk84nQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/ayu-mirage.min.css" integrity="sha512-83Qw5YjeKhwUh0sTjLweNX0/xqhfPAghTPNKP3W2VREm8waJe6rjrpGFN3zl9CMDoInarIjiAfNBE7p+NGPM7g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <!-- MODES TO HIGHLIGHT CODES -->
+        <script src="{% static '/js/Codemirror/mode/javascript/javascript.js' %}"></script>
+        <script src="{% static '/js/Codemirror/mode/css/css.js' %}"></script>
+        <script src="{% static '/js/Codemirror/mode/xml/xml.js' %}"></script>
+        <script src="{% static '/js/Codemirror/mode/python/python.js' %}"></script>
+        <script src="{% static '/js/Codemirror/addon/edit/closebrackets.js' %}"></script>
+        <script src="{% static '/js/Codemirror/addon/edit/closetag.js' %}"></script>
+        <!-- ADDONS -->
+        <script src="{% static '/js/Codemirror/addon/selection/active-line.js' %}"></script>
+    </head>
+    <body>
+        {% include 'partials/layouts/_sidebar.html' %}
+        <section class="d-flex flex-row p-4 get-basic">
+            <!-- left side  -->
+            <div class="w-50 side">
+                <h2 class="text-dark fs-1 mb-4">Add batchs in payment processor</h2>
+                <p class="text-dark mb-2 lh-base fs-6" style="opacity: .9;">
+                    Get an access token for use with basic authentication. Further calls to Pismo endpoints will require an Authorization header.
+                </p>
+                <p class="text-dark mb-2 lh-base fs-6" style="opacity: .8;">
+                    <b class="text-bold text-dark" style="opacity: 1;">NOTE:</b> Many of the endpoints in the Pismo API require a token that contains the account id. Click the following link to view a list of these endpoints: Endpoints that require an account-specific token
+                </p>
+
+                <hr class="bg-grey mb-2"/>
+
+                <h3 class="fs-5 text-dark mb-2">Your Request History</h3>
+                <div class="table-responsive mb-2">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Time</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Path</th>
+                                <th scope="col">User Agent</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">9/21/2023 10:30</th>
+                                <td style="display: flex; align-items: center; gap: .3rem;">
+                                    <span style="display:inline-block; width: 1rem; height: 1rem; border-radius: 50%; background: red;"></span>
+                                    <span>403</span>
+                                </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                
+                <h3 class="fs-5 text-dark mb-2">Body Params</h3>
+                <div class="bg-light w-100 py-4 px-4 rounded">
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <div class="d-flex flex-column">
+                            <p class="fs-6 text-dark" style="margin-bottom: 0rem;"><b class="text-bold" style="margin-right: .5rem;">secret </b><span style="opacity: .9; margin-right: .5rem;">string   </span> <span style="color: red; margin-right: .5rem;">required  </span></p>
+                            <p class="fs-6 text-dark" style="opacity: .9; margin-bottom: 0rem;">The api secret credential identification.</p>
+                        </div>
+                        <input type="text" placeholder="api secret" id="secret" class="form-control" style="height: 2.5rem; width: 50%;"/>
+                    </div>
+                    <hr/>
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <div class="d-flex flex-column">
+                            <p class="fs-6 text-dark" style="margin-bottom: 0rem;"><b class="text-bold" style="margin-right: .5rem;">key </b><span style="opacity: .9; margin-right: .5rem;">string   </span> <span style="color: red; margin-right: .5rem;">required  </span></p>
+                            <p class="fs-6 text-dark" style="opacity: .9; margin-bottom: 0rem;">The api key credential identification.</p>
+                        </div>
+                        <input type="text" placeholder="api key" id="key" class="form-control" style="height: 2.5rem; width: 50%;"/>
+                    </div>
+                    <hr/>
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <div class="d-flex flex-column">
+                            <p class="fs-6 text-dark" style="margin-bottom: 0rem;"><b class="text-bold" style="margin-right: .5rem;">account id </b><span style="opacity: .9; margin-right: .5rem;">number   </span> <span style="color: red; margin-right: .5rem;">required  </span></p>
+                            <p class="fs-6 text-dark" style="opacity: .9; margin-bottom: 0rem;">The account id credential identification.</p>
+                        </div>
+                        <input type="text" placeholder="secret key" id="account_id" class="form-control" style="height: 2.5rem; width: 50%;"/>
+                    </div>
+                </div>
+
+
+                <h3 class="fs-5 text-dark mb-2 mt-4">Responses</h3>
+                <div class="bg-light w-100 py-4 px-4 rounded">
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <div class="d-flex flex-column">
+                            <p style="margin-bottom: .1rem; display: flex; align-items: center; gap: .3rem;">
+                                <span style="display:inline-block; width: 1rem; height: 1rem; border-radius: 50%; background: lightgreen;"></span>
+                                <span>201</span>
+                            </p>
+                            <p class="fs-6 text-dark" style="opacity: .9; margin-bottom: 0rem;">Created</p>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <div class="d-flex flex-column">
+                            <p style="margin-bottom: .1rem; display: flex; align-items: center; gap: .3rem;">
+                                <span style="display:inline-block; width: 1rem; height: 1rem; border-radius: 50%; background: red;"></span>
+                                <span>401</span>
+                            </p>
+                            <p class="fs-6 text-dark" style="opacity: .9; margin-bottom: 0rem;">Unauthorized</p>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <div class="d-flex flex-column">
+                            <p style="margin-bottom: .1rem; display: flex; align-items: center; gap: .3rem;">
+                                <span style="display:inline-block; width: 1rem; height: 1rem; border-radius: 50%; background: red;"></span>
+                                <span>500</span>
+                            </p>
+                            <p class="fs-6 text-dark" style="opacity: .9; margin-bottom: 0rem;">Internal Server Error</p>
+                        </div>
+                    </div>
+                </div>
+
+                <hr style="margin-top: 2rem;"/>
+
+                <div class="d-flex justify-content-between align-items-center px-2">
+                    <a href="/api-reference/batchs-add/" class="text-dark fs-6" style="text-decoration: none; max-width: 15rem; display: flex; align-items: center; gap: .5rem;">
+                        <img src="{% static '/images/arrow-left-solid.svg' %}" style="width: .8rem;"/>
+                        <span>Add batchs</span>
+                    </a>
+                    <a href="/api-reference/batchs-endpoints/" class="text-dark fs-6" style="text-decoration: none; max-width: 15rem; display: flex; align-items: center; gap: .5rem;">
+                        <span style="text-align: right;">Endpoints that require an account-specific batchs</span>
+                        <img src="{% static '/images/arrow-right-solid.svg' %}" style="width: .8rem;"/>
+                    </a>
+                </div>
+            </div>
+
+            <!-- right sight -->
+            <div class="w-50 side" style="border-left: 1px solid rgb(194, 194, 194);">
+                <div class="px-2">
+                    <h4 class="fs-5 text-dark mb-2" style="opacity: .9;">Languages</h4>
+                    <div class="d-flex flex-row py-4 px-2" style="overflow-x: auto;">
+                        <button class="d-flex flex-column align-items-center btn language-btns" style="border: none; background: none; margin: 0 1rem;" data-language='node'>
+                            <img src="{% static '/images/node-js.svg' %}" style="width: 2rem;"/>
+                            <span class="fs-6 text-dark">Node</span>
+                        </button>
+                        <button class="d-flex flex-column align-items-center btn language-btns" style="border: none; background: none; margin: 0 1rem;" data-language='python'>
+                            <img src="{% static '/images/python.svg' %}" style="width: 2rem;"/>
+                            <span class="fs-6 text-dark">Python</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="code-container">
+                    <div class="pane code-pane">
+                        <div class="html-box code-box" id="html-box">
+                            <div class="title">
+                                <span class="title-text" id='title'>
+                                    Python
+                                </span>
+                            </div>
+                        </div>
+                        <div class="title d-flex justify-centent-end" style="justify-content: flex-end;">
+                            <button class="btn btn-primary">Try It!</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

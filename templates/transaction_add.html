@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        {% include 'partials/_headtags.html' %}
+        <!-- Codemirror Library -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js" integrity="sha512-8RnEqURPUc5aqFEN04aQEiPlSAdE0jlFS/9iGgUyNtwFnSKCXhmB6ZTNl7LnDtDWKabJIASzXrzD0K+LYexU9g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css" integrity="sha512-uf06llspW44/LZpHzHT6qBOIVODjWtv4MxCricRxkzvopAlSWnTf6hpZTFxuuZcuNE9CBQhqE0Seu1CoRk84nQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/ayu-mirage.min.css" integrity="sha512-83Qw5YjeKhwUh0sTjLweNX0/xqhfPAghTPNKP3W2VREm8waJe6rjrpGFN3zl9CMDoInarIjiAfNBE7p+NGPM7g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <!-- MODES TO HIGHLIGHT CODES -->
+        <script src="{% static '/js/Codemirror/mode/javascript/javascript.js' %}"></script>
+        <script src="{% static '/js/Codemirror/mode/css/css.js' %}"></script>
+        <script src="{% static '/js/Codemirror/mode/xml/xml.js' %}"></script>
+        <script src="{% static '/js/Codemirror/mode/python/python.js' %}"></script>
+        <script src="{% static '/js/Codemirror/addon/edit/closebrackets.js' %}"></script>
+        <script src="{% static '/js/Codemirror/addon/edit/closetag.js' %}"></script>
+        <!-- ADDONS -->
+        <script src="{% static '/js/Codemirror/addon/selection/active-line.js' %}"></script>
+    </head>
+    <body>
+        {% include 'partials/layouts/_sidebar.html' %}
+        <section class="d-flex flex-row p-4 get-basic">
+            <!-- left side  -->
+            <div class="w-50 side">
+                <h2 class="text-dark fs-1 mb-4">Add transactions in payments processor</h2>
+                <p class="text-dark mb-2 lh-base fs-6" style="opacity: .9;">
+                    Get an access token for use with basic authentication. Further calls to Pismo endpoints will require an Authorization header.
+                </p>
+                <p class="text-dark mb-2 lh-base fs-6" style="opacity: .8;">
+                    <b class="text-bold text-dark" style="opacity: 1;">NOTE:</b> Many of the endpoints in the Pismo API require a token that contains the account id. Click the following link to view a list of these endpoints: Endpoints that require an account-specific token
+                </p>
+
+                <hr class="bg-grey mb-2"/>
+
+                <h3 class="fs-5 text-dark mb-2">Your Request History</h3>
+                <div class="table-responsive mb-2">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Time</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Path</th>
+                                <th scope="col">User Agent</th>
+                            </tr>
+                        </thead>
+                        <tbody id="res-table">
+                            <!-- <tr>
+                                <th scope="row">9/21/2023 10:30</th>
+                                <td style="display: flex; align-items: center; gap: .3rem;">
+                                    <span style="display:inline-block; width: 1rem; height: 1rem; border-radius: 50%; background: red;"></span>
+                                    <span>403</span>
+                                </td>
+                                <td></td>
+                                <td></td>
+                            </tr> -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                
+                <h3 class="fs-5 text-dark mb-2">Body Params</h3>
+                <div class="bg-light w-100 py-4 px-4 rounded">
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <div class="d-flex flex-column">
+                            <p class="fs-6 text-dark" style="margin-bottom: 0rem;"><b class="text-bold" style="margin-right: .5rem;">secret </b><span style="opacity: .9; margin-right: .5rem;">string   </span> <span style="color: red; margin-right: .5rem;">required  </span></p>
+                            <p class="fs-6 text-dark" style="opacity: .9; margin-bottom: 0rem;">The api secret credential identification.</p>
+                        </div>
+                        <input type="text" placeholder="api secret" id="secret" class="form-control" style="height: 2.5rem; width: 50%;"/>
+                    </div>
+                    <hr/>
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <div class="d-flex flex-column">
+                            <p class="fs-6 text-dark" style="margin-bottom: 0rem;"><b class="text-bold" style="margin-right: .5rem;">key </b><span style="opacity: .9; margin-right: .5rem;">string   </span> <span style="color: red; margin-right: .5rem;">required  </span></p>
+                            <p class="fs-6 text-dark" style="opacity: .9; margin-bottom: 0rem;">The api key credential identification.</p>
+                        </div>
+                        <input type="text" placeholder="api key" id="key" class="form-control" style="height: 2.5rem; width: 50%;"/>
+                    </div>
+                    <hr/>
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <div class="d-flex flex-column">
+                            <p class="fs-6 text-dark" style="margin-bottom: 0rem;"><b class="text-bold" style="margin-right: .5rem;">account id </b><span style="opacity: .9; margin-right: .5rem;">number   </span> <span style="color: red; margin-right: .5rem;">required  </span></p>
+                            <p class="fs-6 text-dark" style="opacity: .9; margin-bottom: 0rem;">The account id credential identification.</p>
+                        </div>
+                        <input type="text" placeholder="Account Id" id="account_id" class="form-control" style="height: 2.5rem; width: 50%;"/>
+                    </div>
+                </div>
+
+                <h3 class="fs-5 text-dark mb-2 mt-4">Transactions Details</h3>
+                <div class="bg-light w-100 py-4 px-4 rounded">
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <div class="d-flex flex-column">
+                            <p class="fs-6 text-dark" style="margin-bottom: 0rem;"><b class="text-bold" style="margin-right: .5rem;">First Name </b><span style="opacity: .9; margin-right: .5rem;">string   </span> <span style="color: red; margin-right: .5rem;">required  </span></p>
+                            <p class="fs-6 text-dark" style="opacity: .9; margin-bottom: 0rem;">First Name</p>
+                        </div>
+                        <input type="text" placeholder="First Name" id="first_name" class="form-control" style="height: 2.5rem; width: 50%;"/>
+                    </div>
+                    <hr/>
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <div class="d-flex flex-column">
+                            <p class="fs-6 text-dark" style="margin-bottom: 0rem;"><b class="text-bold" style="margin-right: .5rem;">Last Name </b><span style="opacity: .9; margin-right: .5rem;">string   </span> <span style="color: red; margin-right: .5rem;">required  </span></p>
+                            <p class="fs-6 text-dark" style="opacity: .9; margin-bottom: 0rem;">Last Name</p>
+                        </div>
+                        <input type="text" placeholder="Last Name" id="last_name" class="form-control" style="height: 2.5rem; width: 50%;"/>
+                    </div>
+                    <hr/>
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <div class="d-flex flex-column">
+                            <p class="fs-6 text-dark" style="margin-bottom: 0rem;"><b class="text-bold" style="margin-right: .5rem;">Company</b><span style="opacity: .9; margin-right: .5rem;">string   </span> <span style="color: red; margin-right: .5rem;">required  </span></p>
+                            <p class="fs-6 text-dark" style="opacity: .9; margin-bottom: 0rem;">Company</p>
+                        </div>
+                        <input type="text" placeholder="Company" id="company" class="form-control" style="height: 2.5rem; width: 50%;"/>
+                    </div>
+                    <hr/>
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <div class="d-flex flex-column">
+                            <p class="fs-6 text-dark" style="margin-bottom: 0rem;"><b class="text-bold" style="margin-right: .5rem;">Address</b><span style="opacity: .9; margin-right: .5rem;">string   </span> <span style="color: red; margin-right: .5rem;">required  </span></p>
+                            <p class="fs-6 text-dark" style="opacity: .9; margin-bottom: 0rem;">Address</p>
+                        </div>
+                        <input type="text" placeholder="Address" id="address" class="form-control" style="height: 2.5rem; width: 50%;"/>
+                    </div>
+                    <hr/>
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <div class="d-flex flex-column">
+                            <p class="fs-6 text-dark" style="margin-bottom: 0rem;"><b class="text-bold" style="margin-right: .5rem;">City</b><span style="opacity: .9; margin-right: .5rem;">string   </span> <span style="color: red; margin-right: .5rem;">required  </span></p>
+                            <p class="fs-6 text-dark" style="opacity: .9; margin-bottom: 0rem;">City</p>
+                        </div>
+                        <input type="text" placeholder="City" id="city" class="form-control" style="height: 2.5rem; width: 50%;"/>
+                    </div>
+                    <hr/>
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <div class="d-flex flex-column">
+                            <p class="fs-6 text-dark" style="margin-bottom: 0rem;"><b class="text-bold" style="margin-right: .5rem;">State</b><span style="opacity: .9; margin-right: .5rem;">string   </span> <span style="color: red; margin-right: .5rem;">required  </span></p>
+                            <p class="fs-6 text-dark" style="opacity: .9; margin-bottom: 0rem;">State</p>
+                        </div>
+                        <input type="text" placeholder="State" id="state" class="form-control" style="height: 2.5rem; width: 50%;"/>
+                    </div>
+                    <hr/>
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <div class="d-flex flex-column">
+                            <p class="fs-6 text-dark" style="margin-bottom: 0rem;"><b class="text-bold" style="margin-right: .5rem;">Zip Code</b><span style="opacity: .9; margin-right: .5rem;">string   </span> <span style="color: red; margin-right: .5rem;">required  </span></p>
+                            <p class="fs-6 text-dark" style="opacity: .9; margin-bottom: 0rem;">Zip Code</p>
+                        </div>
+                        <input type="text" placeholder="zip code" id="zip_code" class="form-control" style="height: 2.5rem; width: 50%;"/>
+                    </div>
+                    <hr/>
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <div class="d-flex flex-column">
+                            <p class="fs-6 text-dark" style="margin-bottom: 0rem;"><b class="text-bold" style="margin-right: .5rem;">Country</b><span style="opacity: .9; margin-right: .5rem;">string   </span> <span style="color: red; margin-right: .5rem;">required  </span></p>
+                            <p class="fs-6 text-dark" style="opacity: .9; margin-bottom: 0rem;">Country</p>
+                        </div>
+                        <input type="text" placeholder="country" id="country" class="form-control" style="height: 2.5rem; width: 50%;"/>
+                    </div>
+                    <hr/>
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <div class="d-flex flex-column">
+                            <p class="fs-6 text-dark" style="margin-bottom: 0rem;"><b class="text-bold" style="margin-right: .5rem;">Phone Number</b><span style="opacity: .9; margin-right: .5rem;">string   </span> <span style="color: red; margin-right: .5rem;">required  </span></p>
+                            <p class="fs-6 text-dark" style="opacity: .9; margin-bottom: 0rem;">Phone Number</p>
+                        </div>
+                        <input type="text" placeholder="Phone Number" id="phone_number" class="form-control" style="height: 2.5rem; width: 50%;"/>
+                    </div>
+                    <hr/>
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <div class="d-flex flex-column">
+                            <p class="fs-6 text-dark" style="margin-bottom: 0rem;"><b class="text-bold" style="margin-right: .5rem;">Payment Method</b><span style="opacity: .9; margin-right: .5rem;">string   </span> <span style="color: red; margin-right: .5rem;">required  </span></p>
+                            <p class="fs-6 text-dark" style="opacity: .9; margin-bottom: 0rem;">Payment Method</p>
+                        </div>
+                        <input type="text" placeholder="Payment Method" id="payment_method" class="form-control" style="height: 2.5rem; width: 50%;"/>
+                    </div>
+                    <hr/>
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <div class="d-flex flex-column">
+                            <p class="fs-6 text-dark" style="margin-bottom: 0rem;"><b class="text-bold" style="margin-right: .5rem;">Transaction Type</b><span style="opacity: .9; margin-right: .5rem;">string   </span> <span style="color: red; margin-right: .5rem;">required  </span></p>
+                            <p class="fs-6 text-dark" style="opacity: .9; margin-bottom: 0rem;">Transaction Type</p>
+                        </div>
+                        <select id="transaction_type" class="form-control" style="height: 2.5rem; width: 50%;">
+                            <option value="save">Save</option>
+                            <option value="charge">Charge</option>
+                            <option value="refund">Refund</option>
+                            <option value="post-only">Post Only</option>
+                            <option value="auth-only">Auth Only</option>
+                        </select>
+                    </div>
+
+                    <hr/>
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <div class="d-flex flex-column">
+                            <p class="fs-6 text-dark" style="margin-bottom: 0rem;"><b class="text-bold" style="margin-right: .5rem;">Card Number</b><span style="opacity: .9; margin-right: .5rem;">string   </span> <span style="color: red; margin-right: .5rem;">required  </span></p>
+                            <p class="fs-6 text-dark" style="opacity: .9; margin-bottom: 0rem;">Card Number</p>
+                        </div>
+                        <input type="text" placeholder="Card Number" id="card_number" class="form-control" style="height: 2.5rem; width: 50%;"/>
+                    </div>
+
+                    <hr/>
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <div class="d-flex flex-column">
+                            <p class="fs-6 text-dark" style="margin-bottom: 0rem;"><b class="text-bold" style="margin-right: .5rem;">Expiry Year</b><span style="opacity: .9; margin-right: .5rem;">string   </span> <span style="color: red; margin-right: .5rem;">required  </span></p>
+                            <p class="fs-6 text-dark" style="opacity: .9; margin-bottom: 0rem;">Expiry Year</p>
+                        </div>
+                        <input type="text" placeholder="Expiry Year" id="exp_year" class="form-control" style="height: 2.5rem; width: 50%;"/>
+                    </div>
+
+                    <hr/>
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <div class="d-flex flex-column">
+                            <p class="fs-6 text-dark" style="margin-bottom: 0rem;"><b class="text-bold" style="margin-right: .5rem;">Expiry Month</b><span style="opacity: .9; margin-right: .5rem;">string   </span> <span style="color: red; margin-right: .5rem;">required  </span></p>
+                            <p class="fs-6 text-dark" style="opacity: .9; margin-bottom: 0rem;">Expiry Month</p>
+                        </div>
+                        <input type="text" placeholder="Expiry Month" id="exp_month" class="form-control" style="height: 2.5rem; width: 50%;"/>
+                    </div>
+
+                    <hr/>
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <div class="d-flex flex-column">
+                            <p class="fs-6 text-dark" style="margin-bottom: 0rem;"><b class="text-bold" style="margin-right: .5rem;">CVV</b><span style="opacity: .9; margin-right: .5rem;">string   </span> <span style="color: red; margin-right: .5rem;">required  </span></p>
+                            <p class="fs-6 text-dark" style="opacity: .9; margin-bottom: 0rem;">CVV</p>
+                        </div>
+                        <input type="text" placeholder="CVV" id="cvv" class="form-control" style="height: 2.5rem; width: 50%;"/>
+                    </div>
+
+                    <hr/>
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <div class="d-flex flex-column">
+                            <p class="fs-6 text-dark" style="margin-bottom: 0rem;"><b class="text-bold" style="margin-right: .5rem;">Email</b><span style="opacity: .9; margin-right: .5rem;">string   </span> <span style="color: red; margin-right: .5rem;">required  </span></p>
+                            <p class="fs-6 text-dark" style="opacity: .9; margin-bottom: 0rem;">Email</p>
+                        </div>
+                        <input type="email" placeholder="Email" id="email" class="form-control" style="height: 2.5rem; width: 50%;"/>
+                    </div>
+
+                    <hr/>
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <div class="d-flex flex-column">
+                            <p class="fs-6 text-dark" style="margin-bottom: 0rem;"><b class="text-bold" style="margin-right: .5rem;">Username</b><span style="opacity: .9; margin-right: .5rem;">string   </span> <span style="color: red; margin-right: .5rem;">required  </span></p>
+                            <p class="fs-6 text-dark" style="opacity: .9; margin-bottom: 0rem;">Username</p>
+                        </div>
+                        <input type="text" placeholder="Username" id="authusername" class="form-control" style="height: 2.5rem; width: 50%;"/>
+                    </div>
+
+                    <hr/>
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <div class="d-flex flex-column">
+                            <p class="fs-6 text-dark" style="margin-bottom: 0rem;"><b class="text-bold" style="margin-right: .5rem;">Transaction Id</b><span style="opacity: .9; margin-right: .5rem;">string   </span> <span style="color: red; margin-right: .5rem;">required  </span></p>
+                            <p class="fs-6 text-dark" style="opacity: .9; margin-bottom: 0rem;">Transaction Id</p>
+                        </div>
+                        <input type="text" placeholder="Transaction Id" id="transaction_id" class="form-control" style="height: 2.5rem; width: 50%;"/>
+                    </div>
+
+                    <hr/>
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <div class="d-flex flex-column">
+                            <p class="fs-6 text-dark" style="margin-bottom: 0rem;"><b class="text-bold" style="margin-right: .5rem;">Amount</b><span style="opacity: .9; margin-right: .5rem;">number   </span> <span style="color: red; margin-right: .5rem;">required  </span></p>
+                            <p class="fs-6 text-dark" style="opacity: .9; margin-bottom: 0rem;">Amount</p>
+                        </div>
+                        <input type="text" placeholder="Amount" id="amount" class="form-control" style="height: 2.5rem; width: 50%;"/>
+                    </div>
+                </div>
+
+
+                <h3 class="fs-5 text-dark mb-2 mt-4">Responses</h3>
+                <div class="bg-light w-100 py-4 px-4 rounded">
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <div class="d-flex flex-column">
+                            <p style="margin-bottom: .1rem; display: flex; align-items: center; gap: .3rem;">
+                                <span style="display:inline-block; width: 1rem; height: 1rem; border-radius: 50%; background: lightgreen;"></span>
+                                <span>201</span>
+                            </p>
+                            <p class="fs-6 text-dark" style="opacity: .9; margin-bottom: 0rem;">Created</p>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <div class="d-flex flex-column">
+                            <p style="margin-bottom: .1rem; display: flex; align-items: center; gap: .3rem;">
+                                <span style="display:inline-block; width: 1rem; height: 1rem; border-radius: 50%; background: red;"></span>
+                                <span>401</span>
+                            </p>
+                            <p class="fs-6 text-dark" style="opacity: .9; margin-bottom: 0rem;">Unauthorized</p>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <div class="d-flex flex-column">
+                            <p style="margin-bottom: .1rem; display: flex; align-items: center; gap: .3rem;">
+                                <span style="display:inline-block; width: 1rem; height: 1rem; border-radius: 50%; background: red;"></span>
+                                <span>500</span>
+                            </p>
+                            <p class="fs-6 text-dark" style="opacity: .9; margin-bottom: 0rem;">Internal Server Error</p>
+                        </div>
+                    </div>
+                </div>
+
+                <hr style="margin-top: 2rem;"/>
+
+                <div class="d-flex justify-content-between align-items-center px-2">
+                    <a href="/api-reference/transaction-add/" class="text-dark fs-6" style="text-decoration: none; max-width: 15rem; display: flex; align-items: center; gap: .5rem;">
+                        <img src="{% static '/images/arrow-left-solid.svg' %}" style="width: .8rem;"/>
+                        <span>add transactions</span>
+                    </a>
+                    <a href="/api-reference/transaction-endpoints/" class="text-dark fs-6" style="text-decoration: none; max-width: 15rem; display: flex; align-items: center; gap: .5rem;">
+                        <span style="text-align: right;">Endpoints that require an account-specific transactions</span>
+                        <img src="{% static '/images/arrow-right-solid.svg' %}" style="width: .8rem;"/>
+                    </a>
+                </div>
+            </div>
+
+            <!-- right sight -->
+            <div class="w-50 side" style="border-left: 1px solid rgb(194, 194, 194);">
+                <div class="px-2">
+                    <h4 class="fs-5 text-dark mb-2" style="opacity: .9;">Languages</h4>
+                    <div class="d-flex flex-row py-4 px-2" style="overflow-x: auto;">
+                        <button class="d-flex flex-column align-items-center btn language-btns" style="border: none; background: none; margin: 0 1rem;" data-language='node'>
+                            <img src="{% static '/images/node-js.svg' %}" style="width: 2rem;"/>
+                            <span class="fs-6 text-dark">Node</span>
+                        </button>
+                        <button class="d-flex flex-column align-items-center btn language-btns" style="border: none; background: none; margin: 0 1rem;" data-language='python'>
+                            <img src="{% static '/images/python.svg' %}" style="width: 2rem;"/>
+                            <span class="fs-6 text-dark">Python</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="code-container">
+                    <div class="pane code-pane">
+                        <div class="html-box code-box" id="html-box">
+                            <div class="title">
+                                <span class="title-text" id='title'>
+                                    Python
+                                </span>
+                            </div>
+                        </div>
+                        <div class="title d-flex justify-centent-end" style="justify-content: flex-end;">
+                            <button class="btn btn-primary" id="try">Try It!</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <script>
+            const secret = document.getElementById('secret');
+            const key = document.getElementById('key');
+            const account_id = document.getElementById('account_id');
+
+
+            // transactions elements 
+            const first_name = document.getElementById('first_name');
+            const last_name = document.getElementById('last_name');
+            const company = document.getElementById('company');
+            const address = document.getElementById('address');
+            const city = document.getElementById('city');
+            const state = document.getElementById('state');
+            const zip_code = document.getElementById('zip_code');
+            const country = document.getElementById('country');
+            const phone_number = document.getElementById('phone_number');
+            const payment_method = document.getElementById('payment_method');
+            const transaction_type = document.getElementById('transaction_type');
+            const card_number = document.getElementById('card_number');
+            const exp_year = document.getElementById('exp_year');
+            const exp_month = document.getElementById('exp_month');
+            const cvv = document.getElementById('cvv');
+            const email = document.getElementById('email');
+            const authusername = document.getElementById('authusername');
+            const transaction_id = document.getElementById('transaction_id');
+            const amount = document.getElementById('amount');
+
+
+            const tryBtn = document.getElementById('try');
+            const resTable = document.getElementById('res-table');
+
+            const responses = [];
+
+
+            tryBtn.addEventListener('click',async function(){
+                console.log('keys',secret.value,key.value,account_id.value);
+                const secret_value = secret.value;
+                const key_value = key.value;
+                const account_value = account_id.value;
+                const first_name_value = first_name.value;
+                const last_name_value = last_name.value;
+                const company_value = company.value;
+                const address_value = address.value;
+                const city_value = city.value;
+                const state_value = state.value;
+                const zip_code_value = zip_code.value;
+                const country_value = country.value;
+                const phone_number_value = phone_number.value;
+                const payment_method_value = payment_method.value;
+                const transaction_type_value = transaction_type.value;
+                const card_number_value = card_number.value;
+                const exp_year_value = exp_year.value;
+                const exp_month_value = exp_month.value;
+                const cvv_value = cvv.value;
+                const email_value = email.value;
+                const authusername_value = authusername.value;
+                const transaction_id_value = transaction_id.value;
+                const amount_value = amount.value;
+
+                if( secret_value && key_value && account_value && first_name_value && last_name_value && company_value && address_value && city_value && state_value && zip_code_value && country_value && phone_number_value && payment_method_value && transaction_type_value && exp_year_value && card_number_value && exp_month_value && cvv_value && email_value && authusername_value && transaction_id_value && amount_value){
+                    const data = {
+                        first_name: first_name.value,
+                        last_name: last_name.value,
+                        company: company.value,
+                        address: address.value,
+                        city: city.value,
+                        state: state.value,
+                        zip_code: zip_code.value,
+                        country: country.value,
+                        phone_number: phone_number.value,
+                        payment_method: payment_method.value,
+                        transaction_type: transaction_type.value,
+                        card_number: card_number.value,
+                        exp_year: exp_year.value,
+                        exp_month: exp_month.value,
+                        cvv: cvv.value,
+                        email: email.value,
+                        authusername: authusername.value,
+                        transaction_id: transaction_id.value,
+                        amount: amount.value
+                    }
+                    const c_url = `/transaction-add/?secret=${secret_value}&key=${key_value}&account=${account_value}&first_name=${first_name_value}&last_name=${last_name_value}&company=${company_value}&address=${address_value}&city=${city_value}&state=${state_value}&zip_code=${zip_code_value}&country=${country_value}&phone_number=${phone_number_value}&payment_method=${payment_method_value}&transaction_type=${transaction_type_value}&card_number=${card_number_value}&exp_year=${exp_year_value}&exp_month=${exp_month_value}&cvv=${cvv_value}&email=${email_value}&authusername=${authusername_value}&transaction_id=${transaction_id_value}&amount=${amount_value}`;
+                    let res = await fetch(c_url,{
+                        method: 'POST',
+                        body: JSON.stringify(data),
+                        headers: {
+                            "Content-type": 'application/json; charset=UTF-8'
+                        }
+                    });
+                    res = await res.json();
+                    responses.push(res);
+                    let color = res.status_code === 201 ? 'green': 'red'
+                    const child = `
+                        <th scope="row">${res.time}</th>
+                        <td style="display: flex; align-items: center; gap: .3rem;">
+                            <span style="display:inline-block; width: 1rem; height: 1rem; border-radius: 50%; background: ${color};"></span>
+                            <span>${res.status_code}</span>
+                        </td>
+                        <td></td>
+                        <td></td>
+                    `
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = child;
+                    
+                    resTable.appendChild(tr);
+
+                }
+            });
+
+
+        </script>
+
+        <script>
+            
+            let python = `import requests \n # this is transaction details \ntransation = { \n\t"first_name": "",\n\t"last_name": "",\n\t"company": "",\n\t"address": "",\n\t"city": "",\n\t"state": "",\n\t"zip_code": "",\n\t"country": "",\n\t"phone_number": "",\n\t"payment_method": "",\n\t"transaction_type": "",\n\t"card_number": "",\n\t"exp_year": "",\n\t"exp_month": "",\n\t"cvv": "",\n\t"email": "",\n\t"authusername": "",\n\t"transaction_id": "",\n\t"amount": ""\n}\n\n# this is our credentials \nsecret = ""\nkey = ""\naccount = ""\npayment_processor_url = ""\n\n# we will send post request on server \nres = requests.post(f"{payment_processor_url}/transation/add/?secret={secret}&key={key}&account={account}",data=transation)\nprint(res.text)`;
+
+
+
+            let node = `const axios = require('axios');\n//this is transaction details\nconst transaction = {\n\t"first_name": "",\n\t"last_name": "",\n\t"company": "",\n\t"address": "",\n\t"city": "",\n\t"state": "",\n\t"zip_code": "",\n\t"country": "",\n\t"phone_number": "",\n\t"payment_method": "",\n\t"transaction_type": "",\n\t"card_number": "",\n\t"exp_year": "",\n\t"exp_month": "",\n\t"cvv": "",\n\t"email": "",\n\t"authusername": "",\n\t"transaction_id": "",\n\t"amount": ""\n}\n//this is our credentials \nconst secret = ""\nconst key = ""\nconst account = ""\nconst payment_processor_url = ""\n\nasync function call(){\n\tconst url = `+"`${payment_processor_url}/transation/add/?secret=${secret}&key=${key}&account=${account}`"+`\n\tconst res = await axios.post(url,transaction);\n\tconsole.log(res.data);\n}\ncall();`;
+
+            let codes = {
+                node,
+                python
+            }
+
+
+
+            const btns = document.querySelectorAll('.language-btns');
+            const title = document.getElementById('title');
+            var htmlCodeInstance = CodeMirror(document.getElementById("html-box"), {
+                lineNumbers: true,
+                tabSize: 4,
+                mode: "python",
+                theme: "ayu-mirage",
+                styleActiveLine: true,
+                autoCloseTags: true,
+                autoCloseBrackets: true,
+                value: python
+            });
+
+            let language = 'python'
+            btns.forEach(ele => {
+                ele.addEventListener('click',function(){
+                    const datavalue = ele.dataset.language;
+                    title.innerText = datavalue[0].toLocaleUpperCase()+datavalue.slice(1,datavalue.length);
+                    
+                    if (datavalue?.toLowerCase() === 'node'){
+                        language = 'javascript';
+                        htmlCodeInstance.setOption('mode','javascript')
+                    }else{
+                        language = datavalue;
+                        htmlCodeInstance.setOption('mode',datavalue)
+                    }
+
+                    htmlCodeInstance.setValue(codes[datavalue]);
+
+                });
+            })
+
+
+
+                let secret_value = ''
+                let key_value = ''
+                let account_value = ''
+                let first_name_value = ''
+                let last_name_value = ''
+                let company_value = ''
+                let address_value = ''
+                let city_value = ''
+                let state_value = ''
+                let zip_code_value = ''
+                let country_value = ''
+                let phone_number_value = ''
+                let payment_method_value = ''
+                let transaction_type_value = ''
+                let card_number_value = ''
+                let exp_year_value = ''
+                let exp_month_value = ''
+                let cvv_value = ''
+                let email_value = ''
+                let authusername_value = ''
+                let transaction__valueid = ''
+                let amount_value = ''
+                secret.addEventListener('change',function(e){
+                    let value = e.target.value;
+                    secret_value = e.target.value
+
+                    render()
+                });
+                
+                key.addEventListener('change',function(e){
+                    let value = e.target.value;
+                    key_value = e.target.value
+
+                    render()
+                });
+                
+                account_id.addEventListener('change',function(e){
+                    let value = e.target.value;
+                    account_value = e.target.value
+
+                    render()
+                });
+                               
+                
+                first_name.addEventListener('change',function(e){
+                    let value = e.target.value;
+                    first_name_value = e.target.value
+
+                    render()
+                });
+
+                last_name.addEventListener('change',function(e){
+                    let value = e.target.value;
+                    last_name_value = e.target.value
+
+                    render()
+                });
+
+                company.addEventListener('change',function(e){
+                    let value = e.target.value;
+                    company_value = e.target.value
+
+                    render()
+                });
+
+                address.addEventListener('change',function(e){
+                    let value = e.target.value;
+                    address_value = e.target.value
+                    render();
+                });
+
+                city.addEventListener('change',function(e){
+                    let value = e.target.value;
+                    city_value = e.target.value;
+
+                    render();
+                });
+
+                state.addEventListener('change',function(e){
+                    let value = e.target.value;
+                    state_value = e.target.value
+
+                   render();
+                });
+
+                zip_code.addEventListener('change',function(e){
+                    let value = e.target.value;
+                    zip_code_value = e.target.value
+                    render();
+                });
+
+                country.addEventListener('change',function(e){
+                    let value = e.target.value;
+                    country_value = e.target.value;
+
+                    render();
+                });
+
+                phone_number.addEventListener('change',function(e){
+                    let value = e.target.value;
+                    phone_number_value = e.target.value
+                    render();
+                });
+                
+                payment_method.addEventListener('change',function(e){
+                    let value = e.target.value;
+                    payment_method_value = e.target.value
+
+                    render();
+                });
+
+                transaction_type.addEventListener('change',function(e){
+                    let value = e.target.value;
+                    transaction_type_value = e.target.value;
+                    render();
+                });
+
+                card_number.addEventListener('change',function(e){
+                    let value = e.target.value;
+                    card_number_value = e.target.value
+                    render();
+                });
+                exp_year.addEventListener('change',function(e){
+                    let value = e.target.value;
+                    exp_year_value = e.target.value
+                    render();
+                });
+                exp_month.addEventListener('change',function(e){
+                    let value = e.target.value;
+                    exp_month_value = e.target.value
+                    render();
+                });
+                cvv.addEventListener('change',function(e){
+                    let value = e.target.value;
+                    cvv_value = e.target.value
+                    render();
+                });
+                email.addEventListener('change',function(e){
+                    let value = e.target.value;
+                    email_value = e.target.value
+                    render();
+                });
+                authusername.addEventListener('change',function(e){
+                    let value = e.target.value;
+                    authusername_value = e.target.value
+                    render();
+                });
+                transaction_id.addEventListener('change',function(e){
+                    let value = e.target.value;
+                    transaction__valueid = e.target.value
+                    render();
+                });
+                amount.addEventListener('change',function(e){
+                    let value = e.target.value;
+                    amount_value = e.target.value
+                    render();
+                });
+
+
+
+                function render(){
+                    let new_node = `const axios = require('axios');\n//this is transaction details\nconst transaction = {\n\t"first_name": "${first_name_value}",\n\t"last_name": "${last_name_value}",\n\t"company": "${company_value}",\n\t"address": "${address_value}",\n\t"city": "${city_value}",\n\t"state": "${state_value}",\n\t"zip_code": "${zip_code_value}",\n\t"country": "${country_value}",\n\t"phone_number": "${phone_number_value}",\n\t"payment_method": "${payment_method_value}",\n\t"transaction_type": "${transaction_type_value}",\n\t"card_number": "${card_number_value}",\n\t"exp_year": "${exp_year_value}",\n\t"exp_month": "${exp_month_value}",\n\t"cvv": "${cvv_value}",\n\t"email": "${email_value}",\n\t"authusername": "${authusername_value}",\n\t"transaction_id": "${transaction__valueid}",\n\t"amount": "${amount_value}"\n}\n//this is our credentials \nconst secret = "${secret_value}"\nconst key = "${key_value}"\nconst account = "${account_value}"\nconst payment_processor_url = ""\n\nasync function call(){\n\tconst url = `+"`${payment_processor_url}/transation/add/?secret=${secret}&key=${key}&account=${account}`"+`\n\tconst res = await axios.post(url,transaction);\n\tconsole.log(res.data);\n}\ncall();`;
+
+
+                    let new_python = `import requests \n # this is transaction details \ntransation = {\n\t"first_name": "${first_name_value}",\n\t"last_name": "${last_name_value}",\n\t"company": "${company_value}",\n\t"address": "${address_value}",\n\t"city": "${city_value}",\n\t"state": "${state_value}",\n\t"zip_code": "${zip_code_value}",\n\t"country": "${country_value}",\n\t"phone_number": "${phone_number_value}",\n\t"payment_method": "${payment_method_value}",\n\t"transaction_type": "${transaction_type_value}",\n\t"card_number": "${card_number_value}",\n\t"exp_year": "${exp_year_value}",\n\t"exp_month": "${exp_month_value}",\n\t"cvv": "${cvv_value}",\n\t"email": "${email_value}",\n\t"authusername": "${authusername_value}",\n\t"transaction_id": "${transaction__valueid}",\n\t"amount": "${amount_value}"\n}\n\n# this is our credentials \nsecret = "${secret_value}"\nkey = "${key_value}"\naccount = "${account_value}"\npayment_processor_url = ""\n\n# we will send post request on server \nres = requests.post(f"{payment_processor_url}/transation/add/?secret={secret}&key={key}&account={account}",data=transation)\nprint(res.text)`;
+
+                    python = new_python;
+                    node = new_node;
+
+                     codes = {
+                        node,
+                        python
+                    }
+                    if (language === 'python'){
+                        htmlCodeInstance.setValue(python)
+                    }else if (language === 'node'){
+                        htmlCodeInstance.setValue(node)
+                    }
+                }
+
+
+
+
+        </script>
+    </body>
+</html>

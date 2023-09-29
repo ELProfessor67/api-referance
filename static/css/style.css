@@ -1,0 +1,49 @@
+*
+{
+    margin: 0%;
+    padding: 0%;
+    box-sizing: border-box;
+}
+
+.humber-gun
+{
+    width: 2rem;
+    background: none;
+    border: none;
+}
+
+
+/* api ref */
+.grid-2
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100vw;
+}
+
+.title
+{
+    width: 100%;
+    padding: 1rem;
+    background-color: black;
+    color: white;
+    font-size: 1rem;
+}
+
+@media (max-width: 800px){
+    .get-basic
+    {
+        flex-direction: column !important;
+    }
+
+    .side
+    {
+        width: 100% !important;
+        border: none !important;
+    }
+    
+    .side:last-child
+    {
+        margin-top: 5rem;
+    }
+}
