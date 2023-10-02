@@ -98,3 +98,36 @@ def auth_transaction_add(request):
     response['time'] = str(datetime.now())
 
     return HttpResponse(dumps(response),status=res.status_code)
+
+
+def auth_batch_add(request):
+    print('aaayaaaaye ye')
+    secret = request.GET.get('secret')
+    key = request.GET.get('key')
+    account_id = request.GET.get('account')
+    batch = {
+        "name": request.GET.get('name'),
+        "desciption": 'description',
+        "username": request.GET.get('username'),
+        "transactions": request.GET.get('transactions'),
+        "batch_id": request.GET.get('batch_id'),
+        "status": request.GET.get('status')
+    }
+    url = payment_processor_url + f"/batch/create/?secret={secret}&key={key}&account={account_id}"
+    res = requests.post(url,data=batch)
+    print(res.text)
+    response = {};
+
+    response['status_code'] = res.status_code
+    response['response'] = res.text
+    response['time'] = str(datetime.now())
+
+    return HttpResponse(dumps(response),status=res.status_code)
+
+
+
+def customer(request):
+    return render(request,'customer.html')
+
+def create_customer(request):
+    return render(request,'create_customer.html')

@@ -43,8 +43,8 @@
                                 <th scope="col">User Agent</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
+                        <tbody id="res-table">
+                            <!-- <tr>
                                 <th scope="row">9/21/2023 10:30</th>
                                 <td style="display: flex; align-items: center; gap: .3rem;">
                                     <span style="display:inline-block; width: 1rem; height: 1rem; border-radius: 50%; background: red;"></span>
@@ -52,7 +52,7 @@
                                 </td>
                                 <td></td>
                                 <td></td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table>
                 </div>
@@ -84,6 +84,67 @@
                         <input type="text" placeholder="secret key" id="account_id" class="form-control" style="height: 2.5rem; width: 50%;"/>
                     </div>
                 </div>
+
+
+
+                <h3 class="fs-5 text-dark mb-2 mt-4">Batchs Details</h3>
+                <div class="bg-light w-100 py-4 px-4 rounded">
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <div class="d-flex flex-column">
+                            <p class="fs-6 text-dark" style="margin-bottom: 0rem;"><b class="text-bold" style="margin-right: .5rem;">Name</b><span style="opacity: .9; margin-right: .5rem;">string   </span> <span style="color: red; margin-right: .5rem;">required  </span></p>
+                            <p class="fs-6 text-dark" style="opacity: .9; margin-bottom: 0rem;">Name</p>
+                        </div>
+                        <input type="text" placeholder="Name" id="name" class="form-control" style="height: 2.5rem; width: 50%;"/>
+                    </div>
+                    <hr/>
+
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <div class="d-flex flex-column">
+                            <p class="fs-6 text-dark" style="margin-bottom: 0rem;"><b class="text-bold" style="margin-right: .5rem;">Username</b><span style="opacity: .9; margin-right: .5rem;">string   </span> <span style="color: red; margin-right: .5rem;">required  </span></p>
+                            <p class="fs-6 text-dark" style="opacity: .9; margin-bottom: 0rem;">Username</p>
+                        </div>
+                        <input type="text" placeholder="Username" id="username" class="form-control" style="height: 2.5rem; width: 50%;"/>
+                    </div>
+                    <hr/>
+
+                    <div class="d-flex flex-row justify-content-between align-items-center" style="display: none !important;">
+                        <div class="d-flex flex-column">
+                            <p class="fs-6 text-dark" style="margin-bottom: 0rem;"><b class="text-bold" style="margin-right: .5rem;">Description</b><span style="opacity: .9; margin-right: .5rem;">string   </span> <span style="color: red; margin-right: .5rem;">required  </span></p>
+                            <p class="fs-6 text-dark" style="opacity: .9; margin-bottom: 0rem;">Description</p>
+                        </div>
+                        <input type="text" placeholder="Description" id="desciption" class="form-control" style="height: 2.5rem; width: 50%;"/>
+                    </div>
+                    <hr style="display: none;"/>
+
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <div class="d-flex flex-column">
+                            <p class="fs-6 text-dark" style="margin-bottom: 0rem;"><b class="text-bold" style="margin-right: .5rem;">Transactions Ids</b><span style="opacity: .9; margin-right: .5rem;">array or list   </span> <span style="color: red; margin-right: .5rem;">required  </span></p>
+                            <p class="fs-6 text-dark" style="opacity: .9; margin-bottom: 0rem;">transactions Ids</p>
+                        </div>
+                        <input type="text" placeholder="78798-jyhg-87678,0987j-kiuj-09jhj" id="transactions" class="form-control" style="height: 2.5rem; width: 50%;"/>
+                    </div>
+                    <hr/>
+
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <div class="d-flex flex-column">
+                            <p class="fs-6 text-dark" style="margin-bottom: 0rem;"><b class="text-bold" style="margin-right: .5rem;">Batch Id</b><span style="opacity: .9; margin-right: .5rem;">number   </span> <span style="color: red; margin-right: .5rem;">required  </span></p>
+                            <p class="fs-6 text-dark" style="opacity: .9; margin-bottom: 0rem;">Batch Id</p>
+                        </div>
+                        <input type="text" placeholder="1" id="batch_id" class="form-control" style="height: 2.5rem; width: 50%;"/>
+                    </div>
+                    <hr/>
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <div class="d-flex flex-column">
+                            <p class="fs-6 text-dark" style="margin-bottom: 0rem;"><b class="text-bold" style="margin-right: .5rem;">Status</b><span style="opacity: .9; margin-right: .5rem;">string   </span> <span style="color: red; margin-right: .5rem;">required  </span></p>
+                            <p class="fs-6 text-dark" style="opacity: .9; margin-bottom: 0rem;">Status</p>
+                        </div>
+                        <select id="status" class="form-control" style="height: 2.5rem; width: 50%;">
+                            <option value="Pending">Pending</option>
+                            <option value="Complete">Complete</option>
+                        </select>
+                    </div>
+                </div>
+                    
 
 
                 <h3 class="fs-5 text-dark mb-2 mt-4">Responses</h3>
@@ -159,11 +220,219 @@
                             </div>
                         </div>
                         <div class="title d-flex justify-centent-end" style="justify-content: flex-end;">
-                            <button class="btn btn-primary">Try It!</button>
+                            <button class="btn btn-primary" id="try">Try It!</button>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <script>
+                const secret = document.getElementById('secret');
+                const key = document.getElementById('key');
+                const account_id = document.getElementById('account_id');
+    
+    
+                // batchs elements 
+    
+                const name = document.getElementById('name');
+                const desciption = document.getElementById('desciption');
+                const username = document.getElementById('username');
+                const transactions = document.getElementById('transactions');
+                const batch_id = document.getElementById('batch_id');
+                const status = document.getElementById('status');
+    
+                const tryBtn = document.getElementById('try');
+                const resTable = document.getElementById('res-table');
+    
+                const responses = [];
+    
+    
+                tryBtn.addEventListener('click',async function(){
+                    console.log('keys',secret.value,key.value,account_id.value);
+                    const name_value = name.value;
+                    const desciption_value = 'desciption';
+                    const username_value = username.value;
+                    const transactions_value = JSON.stringify(transactions.value.split(','));
+                    const batch_id_value = batch_id.value;
+                    const status_value = status.value;
+    
+                    if( secret_value && key_value && account_value && name_value && desciption_value &&username_value && transactions_value && batch_id_value && status_value){
+
+                        const c_url = `/batch-add?secret=${secret_value}&key=${key_value}&account=${account_value}&name=${name_value}&desciption=${desciption_value}&username=${username_value}&transactions=${transactions_value}&batch_id=${batch_id_value}&status=${status_value}`;
+                        let res = await fetch(c_url);
+                        res = await res.json();
+                        responses.push(res);
+                        let color = res.status_code === 201 ? 'green': 'red'
+                        const child = `
+                            <th scope="row">${res.time}</th>
+                            <td style="display: flex; align-items: center; gap: .3rem;">
+                                <span style="display:inline-block; width: 1rem; height: 1rem; border-radius: 50%; background: ${color};"></span>
+                                <span>${res.status_code}</span>
+                            </td>
+                            <td></td>
+                            <td></td>
+                        `
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = child;
+                        
+                        resTable.appendChild(tr);
+    
+                    }
+                });
+    
+    
+            </script>
+
+
+            <script>
+            
+                let python = `import requests\n# this is transaction details \nbatch = {\n\t"name": "",\n\t"desciption": "",\n\t"username": "",\n\t#transactions should we array of transactions ids
+                \n\t"transactions": dumps(['']),\n\t"batch_id": 1,\n\t"status": 'Pending'\n}\n# this is our credentials\nsecret = ""\nkey = ""\naccount = ""\npayment_processor_url = ""\n# now we will show without token request\nres = requests.post(f"{payment_processor_url}/batch/create/?secret={secret}&key={key}&account={account}",data=batch)\nprint(res.text)`;
+    
+    
+    
+                let node = `const axios = require('axios');\n//this is batch details\nbatch = {\n\t"name": "",\n\t"desciption": "",\n\t"username": "",\n//transactions should we array of transactions ids    \n\t"transactions": dumps(['']),\n\t"batch_id": 1,\n\t"status": 'Pending'\n}\n//this is our credentials\nconst secret = ""\nconst key = ""\nconst account = ""\nconst payment_processor_url = ""\nasync function call(){\n\tconst url = `+"`${payment_processor_url}/batch/create/?secret=${secret}&key=${key}&account=${account}`"+`\n\tconst res = await axios.post(url,batch);\n\tconsole.log(res.data);\n}\ncall();`;
+    
+                let codes = {
+                    node,
+                    python
+                }
+    
+    
+    
+                const btns = document.querySelectorAll('.language-btns');
+                const title = document.getElementById('title');
+                var htmlCodeInstance = CodeMirror(document.getElementById("html-box"), {
+                    lineNumbers: true,
+                    tabSize: 4,
+                    mode: "python",
+                    theme: "ayu-mirage",
+                    styleActiveLine: true,
+                    autoCloseTags: true,
+                    autoCloseBrackets: true,
+                    value: python
+                });
+    
+                let language = 'python'
+                btns.forEach(ele => {
+                    ele.addEventListener('click',function(){
+                        const datavalue = ele.dataset.language;
+                        title.innerText = datavalue[0].toLocaleUpperCase()+datavalue.slice(1,datavalue.length);
+                        
+                        if (datavalue?.toLowerCase() === 'node'){
+                            language = 'javascript';
+                            htmlCodeInstance.setOption('mode','javascript')
+                        }else{
+                            language = datavalue;
+                            htmlCodeInstance.setOption('mode',datavalue)
+                        }
+    
+                        htmlCodeInstance.setValue(codes[datavalue]);
+    
+                    });
+                })
+    
+    
+    
+                    let secret_value = ''
+                    let key_value = ''
+                    let account_value = ''
+                    let name_value = ''
+                    let desciption_value = ''
+                    let username_value = '';
+                    let transactions_value = '';
+                    let batch_id_value = '';
+                    let status_value = 'Pending';
+                    secret.addEventListener('change',function(e){
+                        let value = e.target.value;
+                        secret_value = e.target.value
+    
+                        render()
+                    });
+                    
+                    key.addEventListener('change',function(e){
+                        let value = e.target.value;
+                        key_value = e.target.value
+    
+                        render()
+                    });
+                    
+                    account_id.addEventListener('change',function(e){
+                        let value = e.target.value;
+                        account_value = e.target.value
+    
+                        render()
+                    });
+                                   
+                    
+                    name.addEventListener('change',function(e){
+                        let value = e.target.value;
+                        name_value = e.target.value
+    
+                        render()
+                    });
+    
+                    desciption.addEventListener('change',function(e){
+                        let value = e.target.value;
+                        desciption_value = e.target.value
+    
+                        render()
+                    });
+    
+                    username.addEventListener('change',function(e){
+                        let value = e.target.value;
+                        username_value = e.target.value
+    
+                        render()
+                    });
+    
+                    transactions.addEventListener('change',function(e){
+                        let value = e.target.value;
+                        transactions_value = e.target.value
+                        render();
+                    });
+    
+                    batch_id.addEventListener('change',function(e){
+                        let value = e.target.value;
+                        batch_id_value = e.target.value;
+    
+                        render();
+                    });
+    
+                    status.addEventListener('change',function(e){
+                        let value = e.target.value;
+                        status_value = e.target.value
+    
+                       render();
+                    });
+    
+    
+                    function render(){
+                        let new_python = `import requests\n# this is transaction details \nbatch = {\n\t"name": "${name_value}",\n\t"desciption": "${desciption_value}",\n\t"username": "${username_value}",\n\t#transactions should we array of transactions ids\n\t"transactions": dumps(${transactions_value}),\n\t"batch_id": ${batch_id_value},\n\t"status": '${status_value}'\n}\n# this is our credentials\nsecret = "${secret_value}"\nkey = "${key_value}"\naccount = "${account_value}"\npayment_processor_url = ""\n# now we will show without token request\nres = requests.post(f"{payment_processor_url}/batch/create/?secret={secret}&key={key}&account={account}",data=batch)\nprint(res.text)`;
+    
+                        let new_node = `const axios = require('axios');\n//this is batch details\nbatch = {\n\t"name": "${name_value}",\n\t"desciption": "${desciption_value}",\n\t"username": "${username_value}",\n\t#transactions should we array of transactions ids\n\t"transactions": dumps(${transactions_value}),\n\t"batch_id": ${batch_id_value},\n\t"status": '${status_value}'\n}\n//this is our credentials\nconst secret = "${secret_value}"\nconst key = "${key_value}"\nconst account = "${account_value}"\nconst payment_processor_url = ""\nasync function call(){\n\tconst url = `+"`${payment_processor_url}/batch/create/?secret=${secret}&key=${key}&account=${account}`"+`\n\tconst res = await axios.post(url,batch);\n\tconsole.log(res.data);\n}\ncall();`;
+    
+                    
+    
+                        python = new_python;
+                        node = new_node;
+    
+                         codes = {
+                            node,
+                            python
+                        }
+                        if (language === 'python'){
+                            htmlCodeInstance.setValue(python)
+                        }else if (language === 'node'){
+                            htmlCodeInstance.setValue(node)
+                        }
+                    }
+    
+    
+    
+    
+            </script>
+        
         </section>
     </body>
 </html>

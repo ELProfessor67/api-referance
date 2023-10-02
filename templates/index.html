@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -5,6 +6,147 @@
     </head>
     <body>
         {% include 'partials/layouts/_header.html' %}
-      <h1>Home Page</h1>
+      <div class="container-fluid" style="background: url({% static '/images/bg.svg'%}); min-height: 23rem;background-repeat: no-repeat;background-size: cover;background-position: center;">
+        <section class="hero-section py-5" style="max-width: 60rem; margin: auto;">
+            <div class="content mt-4">
+                <h1 class="fs-2 text-dark text-bold">Payment Processor Portal</h1>
+                <p class="fs-5 text-dark mt-2" style="line-height: 1.3; opacity: .8; max-width: 30rem;">
+                    Unleash a new era of banking and payments by building on the Pismo platform. Get started quickly with comprehensive guides, API documentation, sample code, and more.
+                </p>
+                <a href="/api-reference/get-basic/" class="btn btn-primary mt-2 text-white text-bold">Examples</a>
+            </div>
+        </section>
+      </div>
+      <section class="container-fluid bg-light py-5">
+        <div class="d-flex justify-content-between" style="flex-wrap: wrap; max-width: 60rem; margin: auto; justify-content: space-between;">
+            <a href="/api-reference/get-basic/" class="p-2 rounded d-flex align-items-center m-2" style="border: 1px solid #9f9cb2; max-width: 28rem; width: 28rem; min-height: 16rem; text-decoration: none;">
+                <img src="https://files.readme.io/65e6f3b-img-guides2x.png" width="125" height="125" style="margin-right: 1rem;"/>
+                <div class="content d-flex flex-column px-2">
+                    <h2 class="fs-4 text-dark text-bold">Learn what you can do with Payment Processor</h2>
+                    <p class="text-dark mt-2" style="line-height: 1.3; opacity: .8; font-size: 1.1rem;">
+                        Build cutting-edge, global financial products for card issuing, digital banking, digital wallets, and
+                        digital marketplaces.
+                    </p>
+                </div>
+            </a>
+
+            <a href="/api-reference/get-basic/" class="p-2 rounded d-flex align-items-center m-2" style="border: 1px solid #9f9cb2; max-width: 28rem; width: 28rem; min-height: 16rem; text-decoration: none;">
+                <img src="https://files.readme.io/f5e24fb-img-sample2x.png" width="125" height="125" style="margin-right: 1rem;"/>
+                <div class="content d-flex flex-column px-2">
+                    <h2 class="fs-4 text-dark text-bold">Get started with the Pismo platform's core objects</h2>
+                    <p class="text-dark mt-2" style="line-height: 1.3; opacity: .8; font-size: 1.1rem;">
+                        Read about the essential platform resources that power your integration with Pismo.
+                    </p>
+                </div>
+            </a>
+        </div>
+    </section>
+
+
+
+    <section class="container-fluid bg-light py-5">
+        <div style="max-width: 60rem; margin: auto;">
+            <hr color="#9f9cb2" class="my-4"/>
+            <h2 class="fs-4 text-center">Payment Processor API</h2>
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center;">
+                <div class="rounded p-2 px-3 m-2 my-4" style="border: 1px solid #9f9cb2; max-width: 18rem; width: 18rem; min-height: 9.4rem;">
+                    <a href="#" class="d-flex justify-content-between align-items-center" style="text-decoration: none;">
+                        <div class="d-flex align-items-center">
+                            <img src="{%static '/images/user.svg' %}"/>
+                            <h4 class="fs-4" style="margin: 0 0 0 .5rem; color: #fe8d53;">Accounts</h4>
+                        </div>
+                        <img src="{%static '/images/grey-arrow.svg' %}" width="25" style="color: grey;"/>
+                    </a>
+                    <p class="text-dark mt-4" style="line-height: 1.3; opacity: .8; font-size: 1rem;">
+                        Create and manage customer accounts on the Pismo platform.
+                    </p>
+                </div>
+
+                <div class="rounded p-2 px-3 m-2 my-4" style="border: 1px solid #9f9cb2; max-width: 18rem; width: 18rem; min-height: 9.4rem;">
+                    <a href="#" class="d-flex justify-content-between align-items-center" style="text-decoration: none;">
+                        <div class="d-flex align-items-center">
+                            <img src="{%static '/images/card.svg' %}"/>
+                            <h4 class="fs-4" style="margin: 0 0 0 .5rem; color: #fe8d53;">Cards</h4>
+                        </div>
+                        <img src="{%static '/images/grey-arrow.svg' %}" width="25" style="color: grey;"/>
+                    </a>
+                    <p class="text-dark mt-4" style="line-height: 1.3; opacity: .8; font-size: 1rem;">
+                        Issue and manage any type of payment card for your customers.
+                    </p>
+                </div>
+
+                <div class="rounded p-2 px-3 m-2 my-4" style="border: 1px solid #9f9cb2; max-width: 18rem; width: 18rem; min-height: 9.4rem;">
+                    <a href="#" class="d-flex justify-content-between align-items-center" style="text-decoration: none;">
+                        <div class="d-flex align-items-center">
+                            <img src="{%static '/images/transactions.svg' %}"/>
+                            <h4 class="fs-4" style="margin: 0 0 0 .5rem; color: #fe8d53;">Transactions</h4>
+                        </div>
+                        <img src="{%static '/images/grey-arrow.svg' %}" width="25" style="color: grey;"/>
+                    </a>
+                    <p class="text-dark mt-4" style="line-height: 1.3; opacity: .8; font-size: 1rem;">
+                        Search for transaction records on financial operations processed by the Pismo platform.
+                    </p>
+                </div>
+
+                <div class="rounded p-2 px-3 m-2 my-4" style="border: 1px solid #9f9cb2; max-width: 18rem; width: 18rem; min-height: 9.4rem;">
+                    <a href="#" class="d-flex justify-content-between align-items-center" style="text-decoration: none;">
+                        <div class="d-flex align-items-center">
+                            <img src="{%static '/images/payments.svg' %}"/>
+                            <h4 class="fs-4" style="margin: 0 0 0 .5rem; color: #fe8d53;">payments</h4>
+                        </div>
+                        <img src="{%static '/images/grey-arrow.svg' %}" width="25" style="color: grey;"/>
+                    </a>
+                    <p class="text-dark mt-4" style="line-height: 1.3; opacity: .8; font-size: 1rem;">
+                        Transfer funds between accounts on the platform, or send and receive funds from external sources.
+                    </p>
+                </div>
+
+                <div class="rounded p-2 px-3 m-2 my-4" style="border: 1px solid #9f9cb2; max-width: 18rem; width: 18rem; min-height: 9.4rem;">
+                    <a href="#" class="d-flex justify-content-between align-items-center" style="text-decoration: none;">
+                        <div class="d-flex align-items-center">
+                            <img src="{%static '/images/Controll.svg' %}"/>
+                            <h4 class="fs-4" style="margin: 0 0 0 .5rem; color: #fe8d53;">Flex Controll</h4>
+                        </div>
+                        <img src="{%static '/images/grey-arrow.svg' %}" width="25" style="color: grey;"/>
+                    </a>
+                    <p class="text-dark mt-4" style="line-height: 1.3; opacity: .8; font-size: 1rem;">
+                        Enforce flexible transaction controls across all programs, or for specific accounts, customers, or cards.
+                    </p>
+                </div>
+
+                <div class="rounded p-2 px-3 m-2 my-4" style="border: 1px solid #9f9cb2; max-width: 18rem; width: 18rem; min-height: 9.4rem;">
+                    <a href="#" class="d-flex justify-content-between align-items-center" style="text-decoration: none;">
+                        <div class="d-flex align-items-center">
+                            <img src="{%static '/images/statement.svg' %}"/>
+                            <h4 class="fs-4" style="margin: 0 0 0 .5rem; color: #fe8d53;">Statements</h4>
+                        </div>
+                        <img src="{%static '/images/grey-arrow.svg' %}" width="25" style="color: grey;"/>
+                    </a>
+                    <p class="text-dark mt-4" style="line-height: 1.3; opacity: .8; font-size: 1rem;">
+                        Manage balances, due dates, and rates for customer credit card statements
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container-fluid bg-dark py-5" id="about">
+        <div style="max-width: 60rem; margin: auto;">
+            <h2 class="text-center text-bold fs-1 text-white mb-5">About Us</h2>
+            <div class="d-flex justify-content-center align-items-center" style="flex-wrap: wrap;">
+                <img src="https://www.pismo.io/wp-content/uploads/2023/03/pismo-platform-numbers-2.png" width="45%"/>
+                <p class="text-white text-normal" style="width: 45%; margin-left: 1rem; line-height: 1.5; word-spacing: .2rem;">
+                    Adipisicing Lorem non tempor et cillum duis tempor adipisicing elit. Eu tempor non do reprehenderit ullamco anim. Adipisicing excepteur consequat ullamco aliqua cillum.
+                    <br/>
+                    <br/>
+                    Voluptate pariatur amet ex nostrud laborum reprehenderit labore minim aute mollit quis. Lorem non officia commodo sunt minim commodo nulla eiusmod laboris dolore ex. Do laborum aliqua reprehenderit velit laboris consequat ad. Nisi exercitation ad ad dolor id. Enim magna sint laborum quis. Aliqua magna ipsum in reprehenderit ullamco anim deserunt irure magna ea amet aliqua.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-4">
+        <p class="text-dark fs-5 text-center" style="margin: 0;">Copy Right 2023 | All Rights Reserved <a href="#" style="text-decoration: none; color: lightblue;">api-reference.com</a></p>
+    </footer>
     </body>
 </html>

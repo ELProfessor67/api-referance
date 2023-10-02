@@ -11,6 +11,9 @@ urlpatterns = [
     path('api-reference/transaction-endpoints/',views.transaction_endpoint,name="transactions endpoints"),
     path('api-reference/batchs-add/',views.batchs_add,name="batchs add"),
     path('api-reference/batchs-endpoints/',views.batchs_endpoint,name="batchs endpoints"),
+    path('api-reference/customer/',views.customer,name="customer"),
+    path('api-reference/create-customer/',views.create_customer,name="create customer"),
     path('auth/',views.auth,name="check authentication"),
-    path('transaction-add/',views.auth_transaction_add,name="check authentication")
+    path('transaction-add/',views.auth_transaction_add,name="check authentication"),
+    path('batch-add/',views.auth_batch_add,name="batch add")
 ]
