@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        {% include 'partials/_headtags.html' %}
+        <!-- Codemirror Library -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js" integrity="sha512-8RnEqURPUc5aqFEN04aQEiPlSAdE0jlFS/9iGgUyNtwFnSKCXhmB6ZTNl7LnDtDWKabJIASzXrzD0K+LYexU9g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css" integrity="sha512-uf06llspW44/LZpHzHT6qBOIVODjWtv4MxCricRxkzvopAlSWnTf6hpZTFxuuZcuNE9CBQhqE0Seu1CoRk84nQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/ayu-mirage.min.css" integrity="sha512-83Qw5YjeKhwUh0sTjLweNX0/xqhfPAghTPNKP3W2VREm8waJe6rjrpGFN3zl9CMDoInarIjiAfNBE7p+NGPM7g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <!-- MODES TO HIGHLIGHT CODES -->
+        <script src="{% static '/js/Codemirror/mode/javascript/javascript.js' %}"></script>
+        <script src="{% static '/js/Codemirror/mode/css/css.js' %}"></script>
+        <script src="{% static '/js/Codemirror/mode/xml/xml.js' %}"></script>
+        <script src="{% static '/js/Codemirror/mode/python/python.js' %}"></script>
+        <script src="{% static '/js/Codemirror/addon/edit/closebrackets.js' %}"></script>
+        <script src="{% static '/js/Codemirror/addon/edit/closetag.js' %}"></script>
+        <!-- ADDONS -->
+        <script src="{% static '/js/Codemirror/addon/selection/active-line.js' %}"></script>
+    </head>
+    <body>
+        {% include 'partials/layouts/_sidebar.html' %}
+        <section class="d-flex flex-row p-4 get-basic">
+            <!-- left side  -->
+            <div class="w-50 side">
+                <h2 class="text-dark fs-1 mb-4">Account</h2>
+                <p class="text-dark mb-2 lh-base fs-6" style="opacity: .9;">
+                    Create a new account. The account object defines a person or a company associated with an account. Each account contains at least one account. You can add multiple accounts to an account but only one can be the account holder. Other accounts can have their own individual cards, but the balances on those cards must be shared with the account holder.
+                </p>
+                <p class="text-dark mb-2 lh-base fs-6" style="opacity: .8;">
+                    <b class="text-bold text-dark" style="opacity: 1;">NOTE:</b>
+                    A account has an associated entity object. If one isn't passed in the request, the platform creates a default one.
+                </p>
+
+                <hr class="bg-grey mb-2"/>
+
+                <h3 class="fs-5 text-dark mb-2">Your Request History</h3>
+                <div class="table-responsive mb-2">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Time</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Path</th>
+                                <th scope="col">User Agent</th>
+                            </tr>
+                        </thead>
+                        <tbody id="res-table">
+                            <!-- <tr>
+                                <th scope="row">9/21/2023 10:30</th>
+                                <td style="display: flex; align-items: center; gap: .3rem;">
+                                    <span style="display:inline-block; width: 1rem; height: 1rem; border-radius: 50%; background: red;"></span>
+                                    <span>403</span>
+                                </td>
+                                <td></td>
+                                <td></td>
+                            </tr> -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                
+                <h3 class="fs-5 text-dark mb-2">Body Params</h3>
+                <div class="bg-light w-100 py-4 px-4 rounded">
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <div class="d-flex flex-column">
+                            <p class="fs-6 text-dark" style="margin-bottom: 0rem;"><b class="text-bold" style="margin-right: .5rem;">secret </b><span style="opacity: .9; margin-right: .5rem;">string   </span> <span style="color: red; margin-right: .5rem;">required  </span></p>
+                            <p class="fs-6 text-dark" style="opacity: .9; margin-bottom: 0rem;">The api secret credential identification.</p>
+                        </div>
+                        <input type="text" placeholder="api secret" id="secret" class="form-control" style="height: 2.5rem; width: 50%;"/>
+                    </div>
+                    <hr/>
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <div class="d-flex flex-column">
+                            <p class="fs-6 text-dark" style="margin-bottom: 0rem;"><b class="text-bold" style="margin-right: .5rem;">key </b><span style="opacity: .9; margin-right: .5rem;">string   </span> <span style="color: red; margin-right: .5rem;">required  </span></p>
+                            <p class="fs-6 text-dark" style="opacity: .9; margin-bottom: 0rem;">The api key credential identification.</p>
+                        </div>
+                        <input type="text" placeholder="api key" id="key" class="form-control" style="height: 2.5rem; width: 50%;"/>
+                    </div>
+                    <hr/>
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <div class="d-flex flex-column">
+                            <p class="fs-6 text-dark" style="margin-bottom: 0rem;"><b class="text-bold" style="margin-right: .5rem;">account id </b><span style="opacity: .9; margin-right: .5rem;">number   </span> <span style="color: red; margin-right: .5rem;">required  </span></p>
+                            <p class="fs-6 text-dark" style="opacity: .9; margin-bottom: 0rem;">The account id credential identification.</p>
+                        </div>
+                        <input type="text" placeholder="account id" id="account_id" class="form-control" style="height: 2.5rem; width: 50%;"/>
+                    </div>
+                </div>
+
+
+                <h3 class="fs-5 text-dark mb-2 mt-4">Responses</h3>
+                <div class="bg-light w-100 py-4 px-4 rounded">
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <div class="d-flex flex-column">
+                            <p style="margin-bottom: .1rem; display: flex; align-items: center; gap: .3rem;">
+                                <span style="display:inline-block; width: 1rem; height: 1rem; border-radius: 50%; background: lightgreen;"></span>
+                                <span>200</span>
+                            </p>
+                            <p class="fs-6 text-dark" style="opacity: .9; margin-bottom: 0rem;">Authorized</p>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <div class="d-flex flex-column">
+                            <p style="margin-bottom: .1rem; display: flex; align-items: center; gap: .3rem;">
+                                <span style="display:inline-block; width: 1rem; height: 1rem; border-radius: 50%; background: red;"></span>
+                                <span>401</span>
+                            </p>
+                            <p class="fs-6 text-dark" style="opacity: .9; margin-bottom: 0rem;">Unauthorized</p>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <div class="d-flex flex-column">
+                            <p style="margin-bottom: .1rem; display: flex; align-items: center; gap: .3rem;">
+                                <span style="display:inline-block; width: 1rem; height: 1rem; border-radius: 50%; background: red;"></span>
+                                <span>500</span>
+                            </p>
+                            <p class="fs-6 text-dark" style="opacity: .9; margin-bottom: 0rem;">Internal Server Error</p>
+                        </div>
+                    </div>
+                </div>
+
+                <hr style="margin-top: 2rem;"/>
+
+                <div class="d-flex justify-content-between align-items-center px-2">
+                    <a href="/api-reference/get-basic/" class="text-dark fs-6" style="text-decoration: none; max-width: 15rem; display: flex; align-items: center; gap: .5rem;">
+                        <img src="{% static '/images/arrow-left-solid.svg' %}" style="width: .8rem;"/>
+                        <span>Get basic authentication access token</span>
+                    </a>
+                    <a href="/api-reference/get-basic-endpoints/" class="text-dark fs-6" style="text-decoration: none; max-width: 15rem; display: flex; align-items: center; gap: .5rem;">
+                        <span style="text-align: right;">Endpoints that require an account-specific token</span>
+                        <img src="{% static '/images/arrow-right-solid.svg' %}" style="width: .8rem;"/>
+                    </a>
+                </div>
+            </div>
+
+            <!-- right sight -->
+            <div class="w-50 side" style="border-left: 1px solid rgb(194, 194, 194);">
+                <div class="px-2">
+                    <h4 class="fs-5 text-dark mb-2" style="opacity: .9;">Languages</h4>
+                    <div class="d-flex flex-row py-4 px-2" style="overflow-x: auto;">
+                        <button class="d-flex flex-column align-items-center btn language-btns" style="border: none; background: none; margin: 0 1rem;" data-language='node'>
+                            <img src="{% static '/images/node-js.svg' %}" style="width: 2rem;"/>
+                            <span class="fs-6 text-dark">Node</span>
+                        </button>
+                        <button class="d-flex flex-column align-items-center btn language-btns" style="border: none; background: none; margin: 0 1rem;" data-language='python'>
+                            <img src="{% static '/images/python.svg' %}" style="width: 2rem;"/>
+                            <span class="fs-6 text-dark">Python</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="code-container">
+                    <div class="pane code-pane">
+                        <div class="html-box code-box" id="html-box">
+                            <div class="title">
+                                <span class="title-text" id='title'>
+                                    Python
+                                </span>
+                            </div>
+                        </div>
+                        <div class="title d-flex justify-centent-end" style="justify-content: flex-end;">
+                            <button class="btn btn-primary" id="try">Try It!</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <script>
+            const secret = document.getElementById('secret');
+            const key = document.getElementById('key');
+            const account_id = document.getElementById('account_id');
+
+            const tryBtn = document.getElementById('try');
+            const resTable = document.getElementById('res-table');
+
+            let responses = [];
+
+            const url = ''
+
+            tryBtn.addEventListener('click',async function(){
+                console.log('keys',secret.value,key.value,account_id.value);
+                const secret_value = secret.value;
+                const key_value = key.value;
+                const account_value = account_id.value;
+                if( secret_value && key_value && account_value ){
+                    const c_url = url+`/auth?secret=${secret_value}&key=${key_value}&account=${account_value}`;
+                    let res = await fetch(c_url);
+                    res = await res.json();
+                    responses.push(res);
+                    let color = res.status_code === 200 ? 'green': 'red'
+                    const child = `
+                        <th scope="row">${res.time}</th>
+                        <td style="display: flex; align-items: center; gap: .3rem;">
+                            <span style="display:inline-block; width: 1rem; height: 1rem; border-radius: 50%; background: ${color};"></span>
+                            <span>${res.status_code}</span>
+                        </td>
+                        <td></td>
+                        <td></td>
+                    `
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = child;
+                    
+                    resTable.appendChild(tr);
+
+                }
+            });
+
+
+        </script>
+
+
+        <!-- code mirror handle  -->
+        <script>
+            let python = `import requests\n\nsecret = ""\nkey = ""\naccount_id = ""\npayment_processor_url = ""\nurl = payment_processor_url + f"/auth?secret={secret}&key={key}&account={account_id}"\nres = requests.get(url)\nprint(res)`;
+            
+            let node = 'const axios = require("axios");\nconst secret = ""\nconst key = ""\nconst account = ""\nconst payment_processor_url = ""\n(async function(){\nconst url = payment_processor_url+`/auth?secret=${secret}&key=${key}&account=${account_id}`\nconst res = await axios.get(url);\nconsole.log(res.data);\n})()';
+
+                let codes = {
+                    node,
+                    python
+                }
+
+
+
+                const btns = document.querySelectorAll('.language-btns');
+                const title = document.getElementById('title');
+                var htmlCodeInstance = CodeMirror(document.getElementById("html-box"), {
+                    lineNumbers: true,
+                    tabSize: 4,
+                    mode: "python",
+                    theme: "ayu-mirage",
+                    styleActiveLine: true,
+                    autoCloseTags: true,
+                    autoCloseBrackets: true,
+                    value: python
+                });
+
+                let language = 'python'
+                btns.forEach(ele => {
+                    ele.addEventListener('click',function(){
+                        const datavalue = ele.dataset.language;
+                        title.innerText = datavalue[0].toLocaleUpperCase()+datavalue.slice(1,datavalue.length);
+                        
+                        if (datavalue?.toLowerCase() === 'node'){
+                            language = 'javascript';
+                            htmlCodeInstance.setOption('mode','javascript')
+                        }else{
+                            language = datavalue;
+                            htmlCodeInstance.setOption('mode',datavalue)
+                        }
+
+                        htmlCodeInstance.setValue(codes[datavalue]);
+
+                    });
+                })
+
+                // const secret = document.getElementById('secret');
+                // const key = document.getElementById('key');
+                // const account_id = document.getElementById('account_id');
+                let secret_value = ''
+                let key_value = ''
+                let account_value = ''
+                secret.addEventListener('change',function(e){
+                    let value = e.target.value;
+                    secret_value = e.target.value
+                    let new_node = `const axios = require("axios");\nconst secret = "${value}"\nconst key = "${key_value}"\nconst account = "${account_value}"\nconst payment_processor_url = ""\n(async function(){\nconst url = payment_processor_url+`+"`/auth?secret=${secret}&key=${key}&account=${account_id}`"+`\nconst res = await axios.get(url);\nconsole.log(res.data);\n})()`;
+                    let new_python = `import requests\n\nsecret = "${value}"\nkey = "${key_value}"\naccount_id = "${account_value}"\npayment_processor_url = ""\nurl = payment_processor_url + f"/auth?secret={secret}&key={key}&account={account_id}"\nres = requests.get(url)\nprint(res)`;
+                    python = new_python;
+                    node = new_node;
+
+                    codes = {
+                        node,
+                        python
+                    }
+
+                    if (language === 'python'){
+                        htmlCodeInstance.setValue(python)
+                    }else if (language === 'node'){
+                        htmlCodeInstance.setValue(node)
+                    }
+                });
+                key.addEventListener('change',function(e){
+                    let value = e.target.value;
+                    key_value = e.target.value
+                    let new_node = `const axios = require("axios");\nconst secret = "${secret_value}"\nconst key = "${value}"\nconst account = "${account_value}"\nconst payment_processor_url = ""\n(async function(){\nconst url = payment_processor_url+`+"`/auth?secret=${secret}&key=${key}&account=${account_id}`"+`\nconst res = await axios.get(url);\nconsole.log(res.data);\n})()`;
+                    let new_python = `import requests\n\nsecret = "${secret_value}"\nkey = "${value}"\naccount_id = "${account_value}"\npayment_processor_url = ""\nurl = payment_processor_url + f"/auth?secret={secret}&key={key}&account={account_id}"\nres = requests.get(url)\nprint(res)`;
+                    python = new_python;
+                    node = new_node;
+                    codes = {
+                        node,
+                        python
+                    }
+                    if (language === 'python'){
+                        htmlCodeInstance.setValue(python)
+                    }else if (language === 'node'){
+                        htmlCodeInstance.setValue(node)
+                    }
+                });
+                account_id.addEventListener('change',function(e){
+                    let value = e.target.value;
+                    account_value = e.target.value
+                    let new_python = `import requests\n\nsecret = "${secret_value}"\nkey = "${key_value}"\naccount_id = "${value}"\npayment_processor_url = ""\nurl = payment_processor_url + f"/auth?secret={secret}&key={key}&account={account_id}"\nres = requests.get(url)\nprint(res)`;
+                    let new_node = `const axios = require("axios");\nconst secret = "${secret_value}"\nconst key = "${key_value}"\nconst account = "${value}"\nconst payment_processor_url = ""\n(async function(){\nconst url = payment_processor_url+`+"`/auth?secret=${secret}&key=${key}&account=${account_id}`"+`\nconst res = await axios.get(url);\nconsole.log(res.data);\n})()`;
+                    python = new_python;
+                    node = new_node;
+
+                     codes = {
+                        node,
+                        python
+                    }
+                    if (language === 'python'){
+                        htmlCodeInstance.setValue(python)
+                    }else if (language === 'node'){
+                        htmlCodeInstance.setValue(node)
+                    }
+                });
+                
+
+        </script>
+    </body>
+</html>

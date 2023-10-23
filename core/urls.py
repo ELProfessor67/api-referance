@@ -15,5 +15,15 @@ urlpatterns = [
     path('api-reference/create-customer/',views.create_customer,name="create customer"),
     path('auth/',views.auth,name="check authentication"),
     path('transaction-add/',views.auth_transaction_add,name="check authentication"),
-    path('batch-add/',views.auth_batch_add,name="batch add")
+    path('batch-add/',views.auth_batch_add,name="batch add"),
+    path('api-reference/refunds/',views.refunds,name="refunds"),
+    path('api-reference/statement/',views.statement,name="statement"),
+    path('api-reference/merchants/',views.merchants,name="merchants"),
+    path('api-reference/account/',views.account,name="account"),
+    path('api-reference/account-balance/',views.accountbalance,name="accountbalance"),
+    path('api-reference/account-bank/',views.accountbank,name="accountbank"),
+    path('api-reference/transactiontype/',views.transactiontype,name="transactiontype"),
+    path('api-reference/processingcodes/',views.processingcodes,name="processingcodes"),
+    path('api-reference/exchangerate/',views.exchangerate,name="exchangerate"),
+    path('api-reference/feemodels/',views.feemodels,name="feemodels"),
 ]

@@ -131,3 +131,33 @@ def customer(request):
 
 def create_customer(request):
     return render(request,'create_customer.html')
+
+def refunds(request):
+    return render(request,'refund.html')
+
+def statement(request):
+    return render(request,'statement.html')
+
+def merchants(request):
+    return render(request,'merchants.html')
+
+def account(request):
+    return render(request,'account.html')
+
+def accountbalance(request):
+    return render(request,'accountbalance.html')
+
+def accountbank(request):
+    return render(request,'accountbank.html')
+
+def transactiontype(request):
+    return render(request,'transactiontype.html')
+
+def processingcodes(request):
+    return render(request,'processingcodes.html')
+
+def exchangerate(request):
+    return render(request,'exchangerate.html')
+
+def feemodels(request):
+    return render(request,'feemodels.html')

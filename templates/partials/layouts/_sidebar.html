@@ -76,11 +76,11 @@
             Refunds
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/api-reference/batchs-add/">Create Refunds Request</a></li>
-            <li><a class="dropdown-item" href="/api-reference/batchs-add/">List Refunds Request</a></li>
-            <li><a class="dropdown-item" href="/api-reference/batchs-endpoints/">Get Refunds Request</a></li>
-            <li><a class="dropdown-item" href="/api-reference/batchs-endpoints/">Cancel Refunds Request</a></li>
-            <li><a class="dropdown-item" href="/api-reference/batchs-endpoints/">Close Refunds Request</a></li>
+            <li><a class="dropdown-item" href="/api-reference/refunds/">Create Refunds Request</a></li>
+            <li><a class="dropdown-item" href="/api-reference/refunds/">List Refunds Request</a></li>
+            <li><a class="dropdown-item" href="/api-reference/refunds/">Get Refunds Request</a></li>
+            <li><a class="dropdown-item" href="/api-reference/refunds/">Cancel Refunds Request</a></li>
+            <li><a class="dropdown-item" href="/api-reference/refunds/">Close Refunds Request</a></li>
           </ul>
         </li>
 
@@ -89,11 +89,11 @@
             Statement
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/api-reference/batchs-add/">Statement</a></li>
-            <li><a class="dropdown-item" href="/api-reference/batchs-add/">List Transactions Balances</a></li>
-            <li><a class="dropdown-item" href="/api-reference/batchs-endpoints/">Get Current Statement</a></li>
+            <li><a class="dropdown-item" href="/api-reference/statement/">Statement</a></li>
+            <li><a class="dropdown-item" href="/api-reference/statement/">List Transactions Balances</a></li>
+            <li><a class="dropdown-item" href="/api-reference/statement/">Get Current Statement</a></li>
             <li><a class="dropdown-item" href="/api-reference/batchs-endpoints/">Get Statement</a></li>
-            <li><a class="dropdown-item" href="/api-reference/batchs-endpoints/">Close Refunds Request</a></li>
+            <li><a class="dropdown-item" href="/api-reference/statement/">Close Refunds Request</a></li>
           </ul>
         </li>
 
@@ -103,11 +103,11 @@
             Merchants
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/api-reference/batchs-add/">Merchants</a></li>
+            <li><a class="dropdown-item" href="/api-reference/merchants/">Merchants</a></li>
             <li><a class="dropdown-item" href="/api-reference/batchs-add/">Create Merchants</a></li>
-            <li><a class="dropdown-item" href="/api-reference/batchs-endpoints/">List Merchants</a></li>
+            <li><a class="dropdown-item" href="/api-reference/merchants/">List Merchants</a></li>
             <li><a class="dropdown-item" href="/api-reference/batchs-endpoints/">Get Merchants</a></li>
-            <li><a class="dropdown-item" href="/api-reference/batchs-endpoints/">Update Merchants</a></li>
+            <li><a class="dropdown-item" href="/api-reference/merchants/">Update Merchants</a></li>
           </ul>
         </li>
 
@@ -116,11 +116,11 @@
             Account
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/api-reference/batchs-add/">Create Account Application</a></li>
+            <li><a class="dropdown-item" href="/api-reference/account/">Create Account Application</a></li>
             <li><a class="dropdown-item" href="/api-reference/batchs-add/">Update Account Application</a></li>
-            <li><a class="dropdown-item" href="/api-reference/batchs-endpoints/">Get Account Application</a></li>
+            <li><a class="dropdown-item" href="/api-reference/account/">Get Account Application</a></li>
             <li><a class="dropdown-item" href="/api-reference/batchs-endpoints/">Update Account Status</a></li>
-            <li><a class="dropdown-item" href="/api-reference/batchs-endpoints/">Get Account</a></li>
+            <li><a class="dropdown-item" href="/api-reference/account/">Get Account</a></li>
           </ul>
         </li>
 
@@ -130,12 +130,12 @@
             Account Balances
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/api-reference/batchs-add/">Account Balances</a></li>
-            <li><a class="dropdown-item" href="/api-reference/batchs-endpoints/">Get ALL Account Balances Limits</a></li>
+            <li><a class="dropdown-item" href="/api-reference/account-balance/">Account Balances</a></li>
+            <li><a class="dropdown-item" href="/api-reference/account-balance/">Get ALL Account Balances Limits</a></li>
           </ul>
         </li>
 
-        <li class="nav-item dropdown">
+        {% comment %} <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle fs-5 text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Account Limits
           </a>
@@ -145,19 +145,19 @@
             <li><a class="dropdown-item" href="/api-reference/batchs-endpoints/">Update Account Limits</a></li>
           </ul>
 
-        </li>
+        </li> {% endcomment %}
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle fs-5 text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Bank Accounts
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/api-reference/batchs-add/">Bank Accounts</a></li>
-            <li><a class="dropdown-item" href="/api-reference/batchs-endpoints/">Ragister Bank Accounts</a></li>
-            <li><a class="dropdown-item" href="/api-reference/batchs-endpoints/">Update  Bank Account</a></li>
+            <li><a class="dropdown-item" href="/api-reference/account-bank/">Bank Accounts</a></li>
+            <li><a class="dropdown-item" href="/api-reference/account-bank/">Ragister Bank Accounts</a></li>
+            <li><a class="dropdown-item" href="/api-reference/account-bank/">Update  Bank Account</a></li>
           </ul>
         </li>
 
-        <li class="nav-item dropdown">
+        {% comment %} <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle fs-5 text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Payments
           </a>
@@ -166,24 +166,24 @@
             <li><a class="dropdown-item" href="/api-reference/batchs-endpoints/">Ragister Bank Accounts</a></li>
             <li><a class="dropdown-item" href="/api-reference/batchs-endpoints/">Update  Bank Account</a></li>
           </ul>
-        </li>
+        </li> {% endcomment %}
 
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle fs-5 text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Transactions Types
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/api-reference/batchs-add/">Payments</a></li>
-            <li><a class="dropdown-item" href="/api-reference/batchs-endpoints/">Transfer Funds</a></li>
+            <li><a class="dropdown-item" href="/api-reference/transactiontype/">Payments</a></li>
+            <li><a class="dropdown-item" href="/api-reference/transactiontype/">Transfer Funds</a></li>
             <li><a class="dropdown-item" href="/api-reference/batchs-endpoints/">Cancel Transfer</a></li>
-            <li><a class="dropdown-item" href="/api-reference/batchs-endpoints/">Capture Pre-Authorizations</a></li>
+            <li><a class="dropdown-item" href="/api-reference/transactiontype/">Capture Pre-Authorizations</a></li>
             <li><a class="dropdown-item" href="/api-reference/batchs-endpoints/">Force Opretions</a></li>
-            <li><a class="dropdown-item" href="/api-reference/batchs-endpoints/">Cancel Operations</a></li>
+            <li><a class="dropdown-item" href="/api-reference/transactiontype/">Cancel Operations</a></li>
             <li><a class="dropdown-item" href="/api-reference/batchs-endpoints/">Cancel Forced Operations</a></li>
           </ul>
         </li>
 
-        <li class="nav-item dropdown">
+        {% comment %} <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle fs-5 text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Holds Funds
           </a>
@@ -196,20 +196,20 @@
             <li><a class="dropdown-item" href="/api-reference/batchs-endpoints/">Payments Requests</a></li>
             <li><a class="dropdown-item" href="/api-reference/batchs-endpoints/">Create Payments Requests</a></li>
           </ul>
-        </li>
+        </li> {% endcomment %}
 
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle fs-5 text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Processing Codes
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/api-reference/batchs-add/">Processing Codes</a></li>
-            <li><a class="dropdown-item" href="/api-reference/batchs-endpoints/">Create Processing Code</a></li>
-            <li><a class="dropdown-item" href="/api-reference/batchs-endpoints/">List Processing Codes</a></li>
+            <li><a class="dropdown-item" href="/api-reference/processingcodes/">Processing Codes</a></li>
+            <li><a class="dropdown-item" href="/api-reference/processingcodes/">Create Processing Code</a></li>
+            <li><a class="dropdown-item" href="/api-reference/processingcodes/">List Processing Codes</a></li>
             <li><a class="dropdown-item" href="/api-reference/batchs-endpoints/">Update Processing Code</a></li>
-            <li><a class="dropdown-item" href="/api-reference/batchs-endpoints/">Cancel Transfer Of Held Amount</a></li>
+            <li><a class="dropdown-item" href="/api-reference/processingcodes/">Cancel Transfer Of Held Amount</a></li>
             <li><a class="dropdown-item" href="/api-reference/batchs-endpoints/">Payments Requests</a></li>
-            <li><a class="dropdown-item" href="/api-reference/batchs-endpoints/">Create Payments Requests</a></li>
+            <li><a class="dropdown-item" href="/api-reference/processingcodes/">Create Payments Requests</a></li>
           </ul>
         </li>
 
@@ -218,9 +218,9 @@
             Exchange Rate
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/api-reference/batchs-endpoints/">Exchange Rate</a></li>
+            <li><a class="dropdown-item" href="/api-reference/exchangerate/">Exchange Rate</a></li>
             <li><a class="dropdown-item" href="/api-reference/batchs-add/">Create Exchange Rate</a></li>
-            <li><a class="dropdown-item" href="/api-reference/batchs-endpoints/">Get Exchange Rate</a></li>
+            <li><a class="dropdown-item" href="/api-reference/exchangerate/">Get Exchange Rate</a></li>
           </ul>
         </li>
 
@@ -229,16 +229,16 @@
             Fee Models
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/api-reference/batchs-endpoints/">Fee Models</a></li>
+            <li><a class="dropdown-item" href="/api-reference/feemodels/">Fee Models</a></li>
             <li><a class="dropdown-item" href="/api-reference/batchs-add/">Create Fee Models</a></li>
-            <li><a class="dropdown-item" href="/api-reference/batchs-endpoints/">List Fee Models</a></li>
-            <li><a class="dropdown-item" href="/api-reference/batchs-endpoints/">Get Fee Models</a></li>
-            <li><a class="dropdown-item" href="/api-reference/batchs-endpoints/">Update Fee Models</a></li>
-            <li><a class="dropdown-item" href="/api-reference/batchs-endpoints/">Attach Fee Models To Account</a></li>
-            <li><a class="dropdown-item" href="/api-reference/batchs-endpoints/">Get Account Fee Models</a></li>
-            <li><a class="dropdown-item" href="/api-reference/batchs-endpoints/">Delete Account Fee Models</a></li>
-            <li><a class="dropdown-item" href="/api-reference/batchs-endpoints/">Attach Fee Models To Program</a></li>
-            <li><a class="dropdown-item" href="/api-reference/batchs-endpoints/">Get Program Fee Models</a></li>
+            <li><a class="dropdown-item" href="/api-reference/feemodels/">List Fee Models</a></li>
+            <li><a class="dropdown-item" href="/api-reference/feemodels/">Get Fee Models</a></li>
+            <li><a class="dropdown-item" href="/api-reference/feemodels/">Update Fee Models</a></li>
+            <li><a class="dropdown-item" href="/api-reference/feemodels/">Attach Fee Models To Account</a></li>
+            <li><a class="dropdown-item" href="/api-reference/feemodels/">Get Account Fee Models</a></li>
+            <li><a class="dropdown-item" href="/api-reference/feemodels/">Delete Account Fee Models</a></li>
+            <li><a class="dropdown-item" href="/api-reference/feemodels/">Attach Fee Models To Program</a></li>
+            <li><a class="dropdown-item" href="/api-reference/feemodels/">Get Program Fee Models</a></li>
             <li><a class="dropdown-item" href="/api-reference/batchs-endpoints/">Delete Program Fee Models</a></li>
           </ul>
         </li>
